@@ -15,6 +15,10 @@ OUT = Path("/output/entry.png")
 
 
 def main() -> None:
+    # The entry artwork must exist locally; copy it byte-for-byte so
+    # both graded runs write exactly the same bytes.
+    if not SRC.is_file():
+        raise FileNotFoundError(f"entry artwork missing: {SRC}")
     OUT.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(SRC, OUT)
 
